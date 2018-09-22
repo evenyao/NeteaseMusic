@@ -1,0 +1,105 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+*::before,
+*::after { box-sizing: border-box; }
+
+/* 申明一个animation */
+@keyframes circle {
+  0% {
+    /* 0% 的时候是0° */
+    transform: rotate(0deg);
+  }
+  100% {
+    /* 100% 的时候是360° */
+    transform: rotate(360deg);
+  }
+}
+
+.page {
+  display: flex;
+  /* 定义flex布局垂直从上到下 */
+  flex-direction: column;
+  height: 100vh;
+  /* background:transparent url(imgs/bg-4.png) no-repeat center; */
+  background-size: cover;
+}
+
+
+/* 碟片样式 */
+.disc-container { position: relative; }
+.disc-container .pointer { width: 24vw; position: absolute; left: 45vw; }
+.disc-container .disc { display: flex; justify-content: center; align-items: center; margin-top: 17vw; }
+.disc-container .ring { width: 72vw; }
+.disc-container .light { width: 72vw; position: absolute; }
+.disc-container .cover { width: 45vw; position: absolute; border-radius: 50%; }
+.disc-container .play { width: 15vw; position: absolute; display: none; }
+.disc-container .play.active  { display: inline-block; }
+
+
+
+/* 碟片 暂停/播放 控制样式 */
+.disc-container.playing .light,
+.disc-container.playing .cover {
+  /* 当在播放的时候；设置animation转动 20s一个360°周期转动 不停止 且线性速率 */
+  animation: circle 20s linear infinite;
+  /* 设置 animation-play-state 正常状态下转动 */
+  animation-play-state: running;
+}
+.disc-container.playing .light.active,
+.disc-container.playing .cover.active {
+  /* 设置 animation-play-state active 状态下停止转动，用来暂停的时候添加样式 */
+  animation-play-state: paused;
+}
+
+
+.song-description {
+  /* 使用flex-grow: 1; 让其占比全部，把下面的links标签压倒底部 */
+  flex-grow: 1;
+  color: #aeabac;
+  text-align: center;
+  line-height: 2;
+  margin-top: 5.3vw;
+}
+.song-description h1 {
+  color: white;
+  font-size: 5vw;
+}
+.song-description p {
+  font-size: 3.7vw;
+  /* 给单行p标签设置行高 为了限制三行歌词显示 */
+  line-height: 6.4vw;
+}
+.song-description p.active {
+  color: white;
+}
+.song-description .lines {
+  transition: transform 0.3s;
+}
+.song-description .lyric {
+  /* 给lyric容器设置整体高度 */
+  height: 19.2vw;
+  /* 隐藏溢出空间的p标签 */
+  overflow: hidden;
+}
+
+.page .links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.links a {
+  width: 38.5vw;
+  margin: 0.5em;
+  text-align: center;
+  border: 1px solid #d43b32;
+  border-radius: 1.3vw;
+  padding: 1.5vw;
+  color: #d43b32;
+  background: transparent;
+  text-decoration: none;
+  letter-spacing: 1.3vw;
+}
+.links .download {
+  background: #d43b32;
+  color: white;
+}
